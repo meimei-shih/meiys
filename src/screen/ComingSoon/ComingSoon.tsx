@@ -1,5 +1,5 @@
 import React from 'react';
-import underConstruction from '../../assets/images/under-construction.png';
+import underConstruction from 'src/assets/images/under-construction.png';
 import './ComingSoon.css';
 
 
