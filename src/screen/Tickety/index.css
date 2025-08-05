@@ -1,4 +1,6 @@
 .tickety-app-container {
+  width: 100%;
+  height: 100%;
   --text-primary: #6250fe;
   --text-primary-opacity: rgba(98, 80, 254, 0.1);
   --text-grey: #6d6d6d;
