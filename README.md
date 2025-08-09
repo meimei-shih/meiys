@@ -1,52 +1,146 @@
-# Getting Started with Create React App
+# Tickety - Project Kanban Board
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern project management application built with React and Firebase, designed to help teams organize their workflow through visual kanban boards.
 
-## Available Scripts
+## Tickety at a Glance
 
-In the project directory, you can run:
+**Tickety** is a comprehensive project kanban board application where you can:
 
-### `npm start`
+- **Create Projects**: Organize your work into distinct projects
+- **Build Kanban Boards**: Create multiple kanban boards for each project with customizable stages
+- **Team Collaboration**: Invite team members to contribute to your projects
+- **Task Management**: Assign tasks to team members and track progress through workflow stages
+- **Workflow Visualization**: Manage your work by stages and keep track of task progression
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### About the Project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Tickety was originally designed & coded by **Mei Shih** as a capstone project at App Academy in February 2022, built in just 10 days. This new version rebuilds the original Tickety app using modern React and Firebase backend/authentication to make it even better and more scalable.
 
-### `npm test`
+## Application Architecture
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Tickety follows a modern React application architecture:
 
-### `npm run build`
+- **Frontend**: React 19 with TypeScript for type safety
+- **State Management**: React Context API for authentication and app state
+- **Routing**: React Router for navigation between different views
+- **Backend**: Firebase for authentication, database, and hosting
+- **Styling**: CSS modules and modern CSS for responsive design
+- **Form Handling**: React Hook Form for efficient form management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Core Dependencies
+- **React 19.1.1** - Modern React with latest features
+- **TypeScript 4.9.5** - Type-safe JavaScript development
+- **Firebase 12.0.0** - Backend services (Auth, Firestore, Hosting)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### UI & UX Libraries
+- **Lucide React 0.537.0** - Beautiful, customizable icons
+- **React Spring 10.0.1** - Smooth animations and transitions
+- **React Toastify 11.0.5** - User notification system
 
-### `npm run eject`
+### Development Tools
+- **React Scripts 5.0.1** - Create React App build tools
+- **React Router DOM 7.7.1** - Client-side routing
+- **React Hook Form 7.62.0** - Performant forms with minimal re-renders
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js (version 16 or higher)
+- Yarn or npm package manager
+- Firebase project setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Installation
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Clone the repository**
+   ```bash
+   git clone <your-repository-url>
+   cd meiys
+   ```
 
-## Learn More
+2. **Install dependencies**
+   ```bash
+   yarn install
+   # or
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Firebase Setup**
+   
+   You'll need to set up a Firebase project and configure the environment variables:
+   
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Authentication and Firestore Database
+   - Get your Firebase configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Environment Configuration**
+   
+   Create a `.env.local` file in the root directory with your Firebase configuration:
+   ```env
+   REACT_APP_FIREBASE_API_KEY=your_api_key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   REACT_APP_FIREBASE_APP_ID=your_app_id
+   ```
 
+### Running the Application
+
+1. **Start the development server**
+   ```bash
+   yarn start
+   # or
+   npm start
+   ```
+
+2. **Open your browser**
+   
+   The app will open at [http://localhost:3000](http://localhost:3000)
+
+3. **Build for production**
+   ```bash
+   yarn build
+   # or
+   npm run build
+   ```
+
+### Available Scripts
+
+- `yarn start` - Runs the app in development mode
+- `yarn build` - Builds the app for production
+- `yarn test` - Launches the test runner
+- `yarn reinstall` - Clean reinstall of dependencies
+- `yarn ts:build` - TypeScript compilation
+- `yarn ts:watch` - TypeScript compilation in watch mode
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+├── context/            # React Context providers
+├── screen/             # Main application screens
+│   ├── Auth/          # Authentication screens
+│   ├── Dashboard/     # Main dashboard
+│   ├── Loading/       # Loading states
+│   └── SplashPage/    # Welcome screen
+├── firebase.ts         # Firebase configuration
+├── routeConfig.tsx     # Application routing
+└── App.tsx            # Main application component
+```
+
+## Contributing
+
+This is a personal project by Mei Shih. If you'd like to contribute or have suggestions, please feel free to reach out!
 
 ## License
 
-- **Code:** Licensed under the [MIT License](./LICENSE).
-- **Artwork & Animations:** © 2025 Mei Shih – [All Rights Reserved](./LICENSE-ARTWORK).
+- **Code:** Licensed under the [MIT License](./LICENSE)
+- **Artwork & Animations:** © 2025 Mei Shih – [All Rights Reserved](./LICENSE-ARTWORK)
+
+---
+
+Built with ❤️ by Mei Shih

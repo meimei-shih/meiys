@@ -1,5 +1,5 @@
-import SplashPage from './screen/SplashPage';
 import Auth from './screen/Auth';
+import HomePage from './screen/HomePage';
 
 enum ROUTES {
   HOME_PAGE = 'HOME_PAGE',
@@ -15,7 +15,7 @@ interface RouteDefinition {
 export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
   [ROUTES.HOME_PAGE]: {
     path: '/',
-    element: <SplashPage />,
+    element: <HomePage />,
   },
   [ROUTES.LOGIN_PAGE]: {
     path: '/login',

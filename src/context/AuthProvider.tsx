@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, validatePassword, onAuthStateChanged, User } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, validatePassword, onAuthStateChanged, User, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { app, db } from "../firebase";
 import { SignUpFormData, useSignUpForm, UseSignUpFormReturn } from "src/screen/Auth/useSignUpForm";
@@ -22,12 +22,15 @@ interface LoginCredentials {
 
 interface AuthContextType {
   // State
+  activeUser: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
   rhForm: UseSignUpFormReturn;
   errors: string[];
-  
   // Actions
   handleSignUp: (e: React.BaseSyntheticEvent) => Promise<void>;
   handleLogin: (e: React.BaseSyntheticEvent, credentials: LoginCredentials) => Promise<void>;
+  handleLogout: (e: React.BaseSyntheticEvent) => Promise<void>;
   setErrors: React.Dispatch<React.SetStateAction<string[]>>;
   clearErrors: () => void;
 }
@@ -44,12 +47,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const auth = getAuth(app);
   const rhForm = useSignUpForm();
   const navigate = useNavigate();
+  const [activeUser, setActiveUser] = useState<User | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
   const { handleSubmit, isValid, reset } = rhForm;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-      // TODO: Add user to local storage
+      if (user) {
+        setActiveUser({ ...user });
+        setIsAuthenticated(true);
+      }
+      else {
+        setActiveUser(null);
+        setIsAuthenticated(false);
+      }
+      setIsLoading(false);
     });
     return unsubscribe;
   }, [auth])
@@ -97,12 +111,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       e.preventDefault();
       const user = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
       if (user.user) navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
-      // TODO: add toast
     } catch (error) {
       setErrors([ERROR_MESSAGES.LOGIN_FAILED]);
       reset();
     }
   }, [auth, setErrors, navigate, reset]);
+
+  const handleLogout = useCallback(async (e: React.BaseSyntheticEvent) => {
+    try {
+      e.preventDefault();
+      await signOut(auth);
+      navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
+    } catch (error) {
+      toast.error(ERROR_MESSAGES.SOMETHING_WENT_WRONG);
+      navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
+    }
+  }, [auth, navigate]);
 
 
   const clearErrors = useCallback(() => {
@@ -111,12 +135,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const contextValue: AuthContextType = {
     // State
+    activeUser,
+    isAuthenticated,
+    isLoading,
     rhForm,
     errors,
-
     // Actions
     handleSignUp,
     handleLogin,
+    handleLogout,
     setErrors,
     clearErrors,
   };
