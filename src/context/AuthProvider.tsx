@@ -58,12 +58,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (user) {
         setActiveUser({ ...user });
         setIsAuthenticated(true);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
       }
       else {
         setActiveUser(null);
         setIsAuthenticated(false);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     });
     return unsubscribe;
   }, [auth])
