@@ -1,21 +1,25 @@
-.splash-page-footer {
+.footer {
   width: 100%;
   height: 150px;
-  background-color: var(--background-secondary);
+  background-color: var(--background-primary);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 50px 0;
+  padding: 20px 0;
 }
 
-.splash-page-footer-links {
+.footer-secondary {
+  background-color: var(--background-secondary);
+}
+
+.footer-links {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.splash-page-footer-links button {
+.footer-links button {
   background-color: transparent;
   border: 1px solid whitesmoke;
   border-radius: 50%;
@@ -29,16 +33,16 @@
   transition: 0.3s;
 }
 
-.splash-page-footer-links button:hover{
+.footer-links button:hover{
   border: 1px solid var(--text-primary);
   background-color: var(--text-primary-opacity);
 }
 
-.splash-page-footer-links button:hover i{
+.footer-links button:hover i{
   color: var(--text-primary);
 }
 
-.splash-page-footer-links button i {
+.footer-links button i {
   color: whitesmoke;
   font-size: 25px;
 }

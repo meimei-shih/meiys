@@ -1,9 +1,10 @@
-import ComingSoon from './screen/ComingSoon';
-import Tickety from './screen/Tickety';
+import SplashPage from './screen/SplashPage';
+import Auth from './screen/Auth';
 
 enum ROUTES {
-  HOME = 'HOME',
-  TICKETY = 'TICKETY',
+  HOME_PAGE = 'HOME_PAGE',
+  LOGIN_PAGE = 'LOGIN_PAGE',
+  SIGNUP_PAGE = 'SIGNUP_PAGE',
 }
 
 interface RouteDefinition {
@@ -12,12 +13,16 @@ interface RouteDefinition {
 }
 
 export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
-  [ROUTES.HOME]: {
+  [ROUTES.HOME_PAGE]: {
     path: '/',
-    element: <ComingSoon />,
+    element: <SplashPage />,
   },
-  [ROUTES.TICKETY]: {
-    path: '/tickety/*',
-    element: <Tickety />,
+  [ROUTES.LOGIN_PAGE]: {
+    path: '/login',
+    element: <Auth />,
+  },
+  [ROUTES.SIGNUP_PAGE]: {
+    path: '/signup',
+    element: <Auth />,
   },
 }

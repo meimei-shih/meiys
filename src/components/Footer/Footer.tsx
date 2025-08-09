@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ROUTE_DEFINITIONS } from '../../routeConfig';
 import './Footer.css';
 
 const Footer: React.FC = () => {
+  const location = useLocation();
+  const isSplashPage = location.pathname === ROUTE_DEFINITIONS.HOME_PAGE.path;
 
   const goToLinkedIn = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -10,7 +14,7 @@ const Footer: React.FC = () => {
 
   const goToGithub = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    window.open('https://github.com/MeiMeiYS');
+    window.open('https://github.com/meimei-shih');
   }, []);
 
   const goToMyWeb = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,8 +23,8 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
-    <footer className='splash-page-footer'>
-      <div className='splash-page-footer-links'>
+    <footer className={`footer ${isSplashPage ? 'footer-secondary' : ''}`}>
+      <div className='footer-links'>
         <button type='button' onClick={goToLinkedIn}>
           <i className="fab fa-linkedin-in"></i>
         </button>
