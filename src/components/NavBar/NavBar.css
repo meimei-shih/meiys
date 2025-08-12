@@ -1,0 +1,102 @@
+.dashboard-content .dashboard-navbar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 280px;
+  height: calc(100vh - 60px);
+  background-color: var(--background-navbar);
+  padding: 15px;
+  border-right: 1px solid var(--border-input-box);
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+.dashboard-navbar .nav-btn-group,
+.dashboard-navbar .nav-projects-button-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dashboard-navbar .nav-projects-button-group {
+  border-top: 1px solid var(--border-input-box);
+  margin-top: 10px;
+}
+
+.dashboard-navbar .nav-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  margin: 8px 0;
+  padding: 5px 10px;
+  gap: 10px;
+  color: var(--white);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--button-border-radius);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1.1rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+
+.dashboard-navbar .nav-item:hover {
+  background-color: var(--background-navbar-hover);
+}
+
+.dashboard-navbar .nav-projects-button-group-title,
+.dashboard-navbar .no-project-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  opacity: 0.7;
+  margin: 5px 0 5px 10px ;
+}
+
+.dashboard-navbar .no-project-message {
+    font-size: 1rem;
+}
+
+.dashboard-navbar .navbar-toggle-btn {
+  position: absolute;
+  background-color: var(--background-navbar);
+  z-index: 1;
+  left: 279px;
+  top: 20px;
+  width: 35px;
+  height: 40px;
+  border: 1px solid var(--text-grey);
+  border-left: none;
+  border-radius: 0 22px 22px 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--white);
+}
+
+.dashboard-navbar .navbar-toggle-btn:hover {
+  color: var(--background-navbar-hover);
+}
+
+.dashboard-navbar.hidden-state {
+  width: 74px;
+}
+
+.dashboard-navbar.hidden-state .navbar-toggle-btn {
+  left: 73px;
+}
+

@@ -21,7 +21,7 @@
 
 .footer-links button {
   background-color: transparent;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--white);
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -43,7 +43,7 @@
 }
 
 .footer-links button i {
-  color: whitesmoke;
+  color: var(--white);
   font-size: 25px;
 }
 

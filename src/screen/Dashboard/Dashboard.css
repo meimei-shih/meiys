@@ -1,0 +1,30 @@
+.dashboard-content {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  background-color: var(--background-dashboard);
+}
+
+.dashboard-content .dashboard-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+  padding: 30px;
+  transition: all 0.3s;
+}
+
+.dashboard-content .dashboard-main-extended {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 60px);
+  overflow: scroll;
+  padding: 30px;
+  transition: all 0.3s;
+}

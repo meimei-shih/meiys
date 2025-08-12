@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Navigate, NavLink, useLocation } from "react-router-dom";
 import { Check, Eye, EyeOff, LoaderCircle, X } from "lucide-react";
 import { useAuth } from "src/context/AuthProvider";
 import { ROUTE_DEFINITIONS } from "src/routeConfig";
 import { FORM_ERRORS_DISPLAY_KEYS, PasswordRequirement } from "./useSignUpForm";
 import Footer from 'src/components/Footer';
+import Loading from 'src/screen/Loading';
 import './Auth.css';
 
 interface PasswordStrengthChecklistProps {
@@ -225,10 +226,13 @@ const SignUp: React.FC = () => {
 
 const Auth: React.FC = () => {
   const location = useLocation();
+  const { isAuthenticated, isLoading } = useAuth();
   const isLoginPage = location.pathname === ROUTE_DEFINITIONS.LOGIN_PAGE.path;
   const isSignUpPage = location.pathname === ROUTE_DEFINITIONS.SIGNUP_PAGE.path;
 
-  if (isLoginPage || isSignUpPage) {
+  if (isLoading) return <Loading />;
+  else if (isAuthenticated) return <Navigate to={ROUTE_DEFINITIONS.HOME_PAGE.path} />;
+  else if (isLoginPage || isSignUpPage) {
     return (
       <>
         {isLoginPage ? <Login /> : <SignUp />}

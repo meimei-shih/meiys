@@ -18,13 +18,18 @@
   /* --text-danger: #000000; */
   --background-primary: #d7d1f0;
   --background-secondary: #b9d2f7;
+  --background-highlight: #ffd621;
+  --background-highlight-opacity-60: rgba(255, 214, 33, 0.6);
   --background-light-grey: rgba(201, 201, 201, 0.2);
   --background-dashboard: #bbb8d5;
   /* --background-navbar: #4169a0; */
   --background-navbar: #544d93;
+  --background-navbar-hover: rgba(245, 245, 245, 0.2);
   --border-input-box: #ababab;
   --disabled-button-background: #ebebeb;
   --success-color: #55ac55;
+  --white: whitesmoke;
+  --button-border-radius: 10px;
 }
 
 body {
