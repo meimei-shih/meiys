@@ -9,17 +9,17 @@
   padding: 20px 0;
 }
 
-.footer-secondary {
+.footer.footer-secondary {
   background-color: var(--background-secondary);
 }
 
-.footer-links {
+.footer .footer-links {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.footer-links button {
+.footer .footer-links button {
   background-color: transparent;
   border: 1px solid var(--white);
   border-radius: 50%;
@@ -33,16 +33,16 @@
   transition: 0.3s;
 }
 
-.footer-links button:hover{
+.footer .footer-links button:hover{
   border: 1px solid var(--text-primary);
   background-color: var(--text-primary-opacity);
 }
 
-.footer-links button:hover i{
+.footer .footer-links button:hover i{
   color: var(--text-primary);
 }
 
-.footer-links button i {
+.footer .footer-links button i {
   color: var(--white);
   font-size: 25px;
 }

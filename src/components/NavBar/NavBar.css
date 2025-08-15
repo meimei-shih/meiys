@@ -1,10 +1,10 @@
-.dashboard-content .dashboard-navbar {
+.dashboard-content .navbar {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 280px;
-  height: calc(100vh - 60px);
+  height: 100vh;
   background-color: var(--background-navbar);
   padding: 15px;
   border-right: 1px solid var(--border-input-box);
@@ -12,19 +12,19 @@
   font-weight: bold;
 }
 
-.dashboard-navbar .nav-btn-group,
-.dashboard-navbar .nav-projects-button-group {
+.navbar .nav-btn-group,
+.navbar .nav-projects-button-group {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.dashboard-navbar .nav-projects-button-group {
+.navbar .nav-projects-button-group {
   border-top: 1px solid var(--border-input-box);
   margin-top: 10px;
 }
 
-.dashboard-navbar .nav-item {
+.navbar .nav-item {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -48,12 +48,12 @@
   text-decoration: none;
 }
 
-.dashboard-navbar .nav-item:hover {
+.navbar .nav-item:hover {
   background-color: var(--background-navbar-hover);
 }
 
-.dashboard-navbar .nav-projects-button-group-title,
-.dashboard-navbar .no-project-message {
+.navbar .nav-projects-button-group-title,
+.navbar .no-project-message {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -67,11 +67,11 @@
   margin: 5px 0 5px 10px ;
 }
 
-.dashboard-navbar .no-project-message {
+.navbar .no-project-message {
     font-size: 1rem;
 }
 
-.dashboard-navbar .navbar-toggle-btn {
+.navbar .navbar-toggle-btn {
   position: absolute;
   background-color: var(--background-navbar);
   z-index: 1;
@@ -88,15 +88,52 @@
   color: var(--white);
 }
 
-.dashboard-navbar .navbar-toggle-btn:hover {
+.navbar .navbar-toggle-btn:hover {
   color: var(--background-navbar-hover);
 }
 
-.dashboard-navbar.hidden-state {
+.navbar.hidden-state {
   width: 74px;
 }
 
-.dashboard-navbar.hidden-state .navbar-toggle-btn {
+.navbar.hidden-state .navbar-toggle-btn {
   left: 73px;
 }
+
+.navbar .footer-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+  gap: 10px;
+}
+
+.navbar .footer-links button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.navbar .footer-links button:hover{
+  border: 1px solid var(--text-primary);
+}
+
+.navbar .footer-links button:hover i{
+  color: var(--text-primary);
+}
+
+.navbar .footer-links button i {
+  color: var(--white);
+  font-size: 25px;
+}
+
 

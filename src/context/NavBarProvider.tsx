@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { LINKEDIN_URL, GITHUB_URL, MY_WEB_URL, REPO_URL } from '../constant';
 
 interface NavBarContextType {
   isExpanded: boolean;
   toggleNavBar: () => void;
+  openLink: (variant: 'linkedin' | 'github' | 'my-web' | 'repo') => void;
 }
 
 // Create context
@@ -20,9 +22,29 @@ export const NavBarProvider: React.FC<NavBarProviderProps> = ({ children }) => {
     setIsExpanded(preState => !preState);
   }, [setIsExpanded]);
 
+  const openLink = useCallback((variant: 'linkedin' | 'github' | 'my-web' | 'repo') => {
+    switch (variant) {
+      case 'linkedin':
+        window.open(LINKEDIN_URL);
+        break;
+      case 'github':
+        window.open(GITHUB_URL);
+        break;
+      case 'my-web':
+        window.open(MY_WEB_URL);
+        break;
+      case 'repo':
+        window.open(REPO_URL);
+        break;
+      default:
+        break;
+    }
+  }, []);
+
   const contextValue: NavBarContextType = {
     isExpanded,
     toggleNavBar,
+    openLink,
   };
 
   return (

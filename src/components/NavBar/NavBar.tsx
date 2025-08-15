@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import { useNavBar } from "src/context/NavBarProvider";
 import { useAuth } from "src/context/AuthProvider";
-import { ROUTE_DEFINITIONS, Routes, ROUTES } from "src/routeConfig";
+import { ROUTE_DEFINITIONS, Routes } from "src/routeConfig";
 import "./NavBar.css";
 
 const NAV_ITEMS: Routes[] = ['HOME_PAGE', 'USER_SETTING', 'LOGOUT'];
@@ -12,8 +12,19 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ route }) => {
+  const { handleLogout } = useAuth();
   const { isExpanded } = useNavBar();
   const { path, label, icon } = ROUTE_DEFINITIONS[route];
+
+  if (route === 'LOGOUT') {
+    return (
+      <button className="nav-item" onClick={handleLogout}>
+        {icon && icon}
+        {isExpanded && <span>{label}</span>}
+      </button>
+    );
+  }
+
   return (
     <NavLink to={path} className="nav-item">
       {icon && icon}
@@ -23,12 +34,10 @@ const NavItem: React.FC<NavItemProps> = ({ route }) => {
 }
 
 const NavBar: React.FC = () => {
-  const { isExpanded, toggleNavBar } = useNavBar();
-  const { handleLogout } = useAuth();
-  const myProjectsArray = [];
+  const { isExpanded, toggleNavBar, openLink } = useNavBar();
 
   return (
-    <div className={`dashboard-navbar ${isExpanded ? '' : 'hidden-state'}`}>
+    <div className={`navbar ${isExpanded ? '' : 'hidden-state'}`}>
       <div className='nav-btn-group'>
           {NAV_ITEMS.map((route) => <NavItem key={route} route={route} />)}
       </div>
@@ -43,6 +52,17 @@ const NavBar: React.FC = () => {
       <button type="button" className="navbar-toggle-btn" onClick={toggleNavBar}>
         {isExpanded ? <i className="fa-solid fa-angle-left"></i> : <i className="fa-solid fa-angle-right"></i>}
       </button>
+      <div className="footer-links">
+        <button type="button" onClick={() => openLink('linkedin')}>
+          <i className="fab fa-linkedin-in"></i>
+        </button>
+        <button type="button" onClick={() => openLink('github')}>
+          <i className="fab fa-github"></i>
+        </button>
+        <button type="button" onClick={() => openLink('my-web')}>
+          <i className="fa-solid fa-m"></i>
+        </button>
+      </div>
     </div>
   );
 };

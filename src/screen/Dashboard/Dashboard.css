@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row-reverse;
   width: 100%;
-  min-height: calc(100vh - 60px);
+  min-height: 100vh;
   background-color: var(--background-dashboard);
 }
 
@@ -12,10 +12,11 @@
   flex: 1;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: 100vh;
   overflow: scroll;
-  padding: 30px;
+  padding: 40px;
   transition: all 0.3s;
+  gap: 20px;
 }
 
 .dashboard-content .dashboard-main-extended {
@@ -23,8 +24,97 @@
   flex: 1;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 20px);
   overflow: scroll;
   padding: 30px;
   transition: all 0.3s;
+  gap: 20px;
+}
+
+.dashboard-content .main-content-card {
+  width: 100%;
+  min-width: 300px;
+  background-color: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+  border: 2px solid var(--background-navbar);
+}
+
+.dashboard-content .main-content-card h2 {
+  margin-top: 0px;
+}
+
+.main-content-card .content .avatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  min-width: 200px;
+  min-height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  margin: 25px;
+}
+
+.main-content-card .content .avatar img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.main-content-card .content p {
+  margin: 20px;
+  display: block;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+  text-indent: 3rem;
+}
+
+.main-content-card .my-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.main-content-card .my-links button {
+  background-color: transparent;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 25px;
+}
+
+.main-content-card .my-links button:hover {
+  background-color: var(--text-primary-opacity);
+}
+
+.repo-link {
+  color: var(--text-primary);
+  text-decoration: underline var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+.repo-link:hover {
+  color: var(--background-navbar);
+  text-decoration: underline var(--background-navbar);
+}
+
+ul.future-updates li {
+  list-style: inside;
+  padding: 0 20px;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
 }
