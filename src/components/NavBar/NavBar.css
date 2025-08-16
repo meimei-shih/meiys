@@ -1,4 +1,4 @@
-.dashboard-content .navbar {
+.authenticated-screen .navbar {
   position: relative;
   display: flex;
   flex-direction: column;

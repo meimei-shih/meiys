@@ -8,6 +8,7 @@ export enum ROUTES {
   SIGNUP_PAGE = 'SIGNUP_PAGE',
   LOGOUT = 'LOGOUT',
   USER_SETTING = 'USER_SETTING',
+  ERROR_PAGE = 'ERROR_PAGE',
 }
 
 export type Routes = keyof typeof ROUTES;
@@ -39,7 +40,7 @@ export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
   [ROUTES.USER_SETTING]: {
     label: 'User Setting',
     path: '/user-setting',
-    element: <></>,
+    element: <HomePage />,
     icon: <Settings />,
   },
   [ROUTES.LOGOUT]: {
@@ -48,4 +49,11 @@ export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
     element: <HomePage />,
     icon: <LogOut />,
   },
+  [ROUTES.ERROR_PAGE]: {
+    label: 'Error',
+    path: '/error',
+    element: <div>Error Page - Something went wrong</div>,
+  },
 }
+
+export const ROOT_ROUTES = [ ROUTES.HOME_PAGE, ROUTES.LOGIN_PAGE, ROUTES.SIGNUP_PAGE, ROUTES.USER_SETTING ];

@@ -1,0 +1,45 @@
+.user-setting-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  padding: 40px;
+  transition: all 0.3s;
+  gap: 20px;
+}
+
+.user-setting-container .main-content-card {
+  width: 100%;
+  min-width: 300px;
+  background-color: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+  border: 2px solid var(--background-navbar);
+}
+
+.user-setting-container .main-content-card h2 {
+  margin-top: 0px;
+  color: var(--text-secondary);
+}
+
+.user-setting-container .content p {
+  margin: 0px 0px 20px 0px;
+  display: block;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+  color: var(--text-secondary);
+}
+
+.user-setting-container .settings-features {
+  list-style: inside;
+  padding: 0 20px;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+  color: var(--text-secondary);
+}
+
+.user-setting-container .settings-features li {
+  margin-bottom: 10px;
+}

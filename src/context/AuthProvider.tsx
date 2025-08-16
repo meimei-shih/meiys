@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast, Bounce } from "react-toastify";
+import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, validatePassword, onAuthStateChanged, User, signOut } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { app, db } from "../firebase";
+import { app } from "../firebase";
 import { SignUpFormData, useSignUpForm, UseSignUpFormReturn } from "src/screen/Auth/useSignUpForm";
 import { ROUTE_DEFINITIONS } from "src/routeConfig";
+import { UserProfile, createUserProfile, getUserProfile } from "src/HelperFunction/user";
+import { errorToast, generalToast } from "src/HelperFunction/generalToast";
 
 const ERROR_MESSAGES = {
   PASSWORD_NOT_VALID: 'Password is not valid.',
@@ -13,6 +14,8 @@ const ERROR_MESSAGES = {
   SOMETHING_WENT_WRONG: 'Something went wrong. Please try again. If the problem persists, please contact support.',
   EMAIL_ALREADY_IN_USE: 'Email already in use.',
   LOGIN_FAILED: 'The username or password you entered is not valid.',
+  USER_PROFILE_NOT_FOUND: 'User profile not found. Please contact support.',
+  FAILED_TO_FETCH_USER_PROFILE: 'Failed to fetch user profile. Please try again later.',
 }
 
 interface LoginCredentials {
@@ -25,6 +28,7 @@ interface AuthContextType {
   activeUser: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  userProfile: UserProfile | null;
   rhForm: UseSignUpFormReturn;
   errors: string[];
   // Actions
@@ -48,28 +52,50 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const rhForm = useSignUpForm();
   const navigate = useNavigate();
   const [activeUser, setActiveUser] = useState<User | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState<string[]>([]);
   const { handleSubmit, isValid, reset } = rhForm;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user: User | null) => {
       if (user) {
         setActiveUser({ ...user });
-        setIsAuthenticated(true);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 3000);
+        let userProfile = null;
+        try {
+          userProfile = await getUserProfile(user);
+          if (userProfile) {
+            setUserProfile(userProfile);
+            setIsAuthenticated(true);
+            setTimeout(() => {
+              setIsLoading(false);
+            }, 3000);
+          } else {
+            setErrors([ERROR_MESSAGES.USER_PROFILE_NOT_FOUND]);
+            errorToast(ERROR_MESSAGES.USER_PROFILE_NOT_FOUND, true, ERROR_MESSAGES.USER_PROFILE_NOT_FOUND);
+          }
+        } catch (error) {
+          clearAuthState();
+          setErrors([ERROR_MESSAGES.FAILED_TO_FETCH_USER_PROFILE]);
+          errorToast(ERROR_MESSAGES.FAILED_TO_FETCH_USER_PROFILE, true, ERROR_MESSAGES.FAILED_TO_FETCH_USER_PROFILE);
+        }
       }
       else {
-        setActiveUser(null);
-        setIsAuthenticated(false);
-        setIsLoading(false);
+        clearAuthState();
+        setErrors([]);
+        toast.dismiss();
       }
     });
     return unsubscribe;
-  }, [auth])
+  }, [auth, navigate])
+
+  const clearAuthState = useCallback(() => {
+    setActiveUser(null);
+    setUserProfile(null);
+    setIsAuthenticated(false);
+    setIsLoading(false);
+  }, []);
 
   const handleSignUp = useCallback(handleSubmit(async (credentials: SignUpFormData) => {
     try {
@@ -83,25 +109,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const newUser = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
       if (newUser.user) {
-        await setDoc(doc(db, "Users", newUser.user.uid), {
-          email: newUser.user.email,
+        await createUserProfile(newUser.user, {
+          email: newUser.user.email as string,
           username: credentials.username,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         });
-        toast.success('Account created successfully', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
+        generalToast('Account created successfully', 'success');
         navigate(ROUTE_DEFINITIONS.LOGIN_PAGE.path);
-      reset();
+        reset();
       }
     } catch (error) {
       if (String(error).includes('email-already-in-use')) setErrors([ERROR_MESSAGES.EMAIL_ALREADY_IN_USE]);
@@ -114,6 +128,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       e.preventDefault();
       const user = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
       if (user.user) navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
+      setIsLoading(true);
     } catch (error) {
       setErrors([ERROR_MESSAGES.LOGIN_FAILED]);
       reset();
@@ -126,11 +141,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       await signOut(auth);
       navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
     } catch (error) {
-      toast.error(ERROR_MESSAGES.SOMETHING_WENT_WRONG);
+      errorToast(ERROR_MESSAGES.SOMETHING_WENT_WRONG);
       navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
     }
   }, [auth, navigate]);
-
 
   const clearErrors = useCallback(() => {
     setErrors([]);
@@ -139,6 +153,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const contextValue: AuthContextType = {
     // State
     activeUser,
+    userProfile,
     isAuthenticated,
     isLoading,
     rhForm,
@@ -164,4 +179,3 @@ export const useAuth = (): AuthContextType => {
   if (!context) throw new Error('useAuth must be used within a AuthProvider');
   return context;
 };
-

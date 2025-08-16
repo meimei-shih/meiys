@@ -49,7 +49,7 @@
 }
 
 .login-and-sign-up-page-content .input-error {
-    border: 1px solid tomato;
+    border: 1px solid var(--error-color);
 }
 
 .login-and-sign-up-page-content .input-container label {

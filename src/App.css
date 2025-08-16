@@ -28,6 +28,7 @@
   --border-input-box: #ababab;
   --disabled-button-background: #ebebeb;
   --success-color: #55ac55;
+  --error-color: tomato;
   --white: whitesmoke;
   --button-border-radius: 10px;
 }
@@ -47,7 +48,7 @@ code {
 }
 
 .error-message {
-  color: tomato;
+  color: var(--error-color);
   list-style: inside;
   width: 100%;
   height: 18px;
@@ -63,4 +64,13 @@ code {
 
 .visible {
   visibility: visible;
+}
+
+.authenticated-screen {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background-dashboard);
 }

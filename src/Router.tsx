@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ROUTE_DEFINITIONS } from './routeConfig';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { ROUTE_DEFINITIONS, ROOT_ROUTES } from './routeConfig';
 import AppSetting from './AppSetting';
 
 const Router: React.FC = () => {
@@ -8,9 +8,11 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <AppSetting>
         <Routes>
-          {Object.values(ROUTE_DEFINITIONS).map(({ path, element }) => (
-            <Route key={path} path={path} element={element} />
-          ))}
+          {ROOT_ROUTES.map((route) => {
+            const { path, element } = ROUTE_DEFINITIONS[route];
+            return <Route key={path} path={path} element={element} />
+          })}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppSetting>
     </BrowserRouter>

@@ -2,6 +2,8 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/meiyinshih/";
 
 const GITHUB_URL = "https://github.com/meimei-shih";
 
+const GITHUB_ISSUES_URL = "https://github.com/meimei-shih/meiys/issues";
+
 const MY_WEB_URL = "https://meiys.me/";
 
 const REPO_URL = "https://github.com/meimei-shih/meiys";
@@ -17,6 +19,7 @@ const ABOUT_ME = [
 export {
   LINKEDIN_URL,
   GITHUB_URL,
+  GITHUB_ISSUES_URL,
   MY_WEB_URL,
   REPO_URL,
   ABOUT_THIS_APP,
