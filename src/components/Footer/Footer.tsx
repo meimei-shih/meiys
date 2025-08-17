@@ -6,7 +6,7 @@ import './Footer.css';
 
 const Footer: React.FC = () => {
   const location = useLocation();
-  const isSplashPage = location.pathname === ROUTE_DEFINITIONS.HOME_PAGE.path;
+  const isSplashPage = location.pathname === ROUTE_DEFINITIONS.SPLASH_PAGE.path;
 
   const openLink = useCallback((variant: 'linkedin' | 'github' | 'my-web') => {
     switch (variant) {

@@ -5,7 +5,7 @@ import { useAuth } from "src/context/AuthProvider";
 import { ROUTE_DEFINITIONS, Routes } from "src/routeConfig";
 import "./NavBar.css";
 
-const NAV_ITEMS: Routes[] = ['HOME_PAGE', 'USER_SETTING', 'LOGOUT'];
+const NAV_ITEMS: Routes[] = ['AUTHENTICATED', 'USER_SETTING', 'LOGOUT'];
 
 interface NavItemProps {
   route: Routes;
@@ -13,8 +13,9 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ route }) => {
   const { handleLogout } = useAuth();
-  const { isExpanded } = useNavBar();
-  const { path, label, icon } = ROUTE_DEFINITIONS[route];
+  const { isExpanded, getSubRoutePath } = useNavBar();
+  const { path, label, icon, isSubRoute } = ROUTE_DEFINITIONS[route];
+  const routePath = isSubRoute ? getSubRoutePath(route) : path;
 
   if (route === 'LOGOUT') {
     return (
@@ -26,7 +27,7 @@ const NavItem: React.FC<NavItemProps> = ({ route }) => {
   }
 
   return (
-    <NavLink to={path} className="nav-item">
+    <NavLink to={routePath} className="nav-item">
       {icon && icon}
       {isExpanded && <span>{label}</span>}
     </NavLink>

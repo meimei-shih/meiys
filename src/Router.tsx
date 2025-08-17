@@ -8,10 +8,12 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <AppSetting>
         <Routes>
+          {/* Public routes */}
           {ROOT_ROUTES.map((route) => {
             const { path, element } = ROUTE_DEFINITIONS[route];
             return <Route key={path} path={path} element={element} />
           })}
+          {/* Catch all - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppSetting>

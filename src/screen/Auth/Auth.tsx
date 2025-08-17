@@ -226,12 +226,13 @@ const SignUp: React.FC = () => {
 
 const Auth: React.FC = () => {
   const location = useLocation();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, errors, userProfile } = useAuth();
   const isLoginPage = location.pathname === ROUTE_DEFINITIONS.LOGIN_PAGE.path;
   const isSignUpPage = location.pathname === ROUTE_DEFINITIONS.SIGNUP_PAGE.path;
 
-  if (isLoading) return <Loading />;
-  else if (isAuthenticated) return <Navigate to={ROUTE_DEFINITIONS.HOME_PAGE.path} />;
+  if (errors.length > 0) return <Navigate to={ROUTE_DEFINITIONS.ERROR_PAGE.path} />
+  else if (isAuthenticated && userProfile) return <Navigate to={`/${userProfile.username}`} />;
+  else if (isLoading) return <Loading />;
   else if (isLoginPage || isSignUpPage) {
     return (
       <>

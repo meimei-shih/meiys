@@ -8,7 +8,7 @@ const Dashboard: React.FC = () => {
   const { isExpanded, openLink } = useNavBar();
   
   return (
-    <div className={isExpanded ? 'dashboard-main' : 'dashboard-main-extended'}>
+    <>
       <div className="main-content-card">
         <h2>About this app</h2>
         <div className="content">
@@ -70,7 +70,7 @@ const Dashboard: React.FC = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setUserProfile(userProfile);
             setIsAuthenticated(true);
             setTimeout(() => {
-              setIsLoading(false);
+            setIsLoading(false);
             }, 3000);
           } else {
             setErrors([ERROR_MESSAGES.USER_PROFILE_NOT_FOUND]);
@@ -88,7 +88,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     });
     return unsubscribe;
-  }, [auth, navigate])
+  }, [auth])
 
   const clearAuthState = useCallback(() => {
     setActiveUser(null);
@@ -127,24 +127,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       e.preventDefault();
       const user = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
-      if (user.user) navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
       setIsLoading(true);
     } catch (error) {
       setErrors([ERROR_MESSAGES.LOGIN_FAILED]);
       reset();
     }
-  }, [auth, setErrors, navigate, reset]);
+  }, [auth, setErrors, reset]);
 
   const handleLogout = useCallback(async (e: React.BaseSyntheticEvent) => {
     try {
       e.preventDefault();
       await signOut(auth);
-      navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
     } catch (error) {
       errorToast(ERROR_MESSAGES.SOMETHING_WENT_WRONG);
-      navigate(ROUTE_DEFINITIONS.HOME_PAGE.path);
     }
-  }, [auth, navigate]);
+  }, [auth]);
 
   const clearErrors = useCallback(() => {
     setErrors([]);

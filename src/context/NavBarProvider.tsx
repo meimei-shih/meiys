@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { ROUTE_DEFINITIONS, Routes } from "src/routeConfig";
 import { LINKEDIN_URL, GITHUB_URL, MY_WEB_URL, REPO_URL } from '../constant';
+import { useAuth } from "./AuthProvider";
 
 interface NavBarContextType {
   isExpanded: boolean;
   toggleNavBar: () => void;
   openLink: (variant: 'linkedin' | 'github' | 'my-web' | 'repo') => void;
+  getSubRoutePath: (route: Routes) => string;
 }
 
 // Create context
@@ -17,6 +20,7 @@ interface NavBarProviderProps {
 
 export const NavBarProvider: React.FC<NavBarProviderProps> = ({ children }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const { userProfile } = useAuth();
 
   const toggleNavBar = useCallback(() => {
     setIsExpanded(preState => !preState);
@@ -41,10 +45,22 @@ export const NavBarProvider: React.FC<NavBarProviderProps> = ({ children }) => {
     }
   }, []);
 
+  const getSubRoutePath = useCallback((route: Routes) => {
+    if (!userProfile) return '/';
+    const routeDef = ROUTE_DEFINITIONS[route];
+    if (routeDef.isSubRoute && routeDef.basePath) {
+      // For sub-routes, construct path using basePath
+      return `/${userProfile.username}${routeDef.basePath}`;
+    }
+    // For non-sub-routes, return the original path
+    return routeDef.path;
+  }, [userProfile?.username]);
+
   const contextValue: NavBarContextType = {
     isExpanded,
     toggleNavBar,
     openLink,
+    getSubRoutePath,
   };
 
   return (

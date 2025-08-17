@@ -1,15 +1,19 @@
 import React, { useCallback } from "react";
-import { useAuth } from "src/context/AuthProvider";
+import { Navigate } from "react-router-dom";
 import { AlertTriangle, Github, LogOut } from "lucide-react";
+import { useAuth } from "src/context/AuthProvider";
+import { ROUTE_DEFINITIONS } from "src/routeConfig";
+import { GITHUB_ISSUES_URL } from "src/constant";
 import './Error.css';
 
 const Error: React.FC = () => {
-  const { handleLogout } = useAuth();
+  const { handleLogout, errors } = useAuth();
 
   const handleReportIssue = useCallback(() => {
-    window.open('https://github.com/meimei-shih/meiys/issues', '_blank');
+    window.open(GITHUB_ISSUES_URL, '_blank');
   }, []);
 
+  if (!errors.length) return <Navigate to={ROUTE_DEFINITIONS.AUTHENTICATED.path} />
   return (
     <div className="error-page">
       <div className="error-container">

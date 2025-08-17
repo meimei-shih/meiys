@@ -1,14 +1,18 @@
-import { House, Settings, LogOut } from 'lucide-react';
+import { House, LogOut, Settings } from 'lucide-react';
 import Auth from './screen/Auth';
-import HomePage from './screen/HomePage';
+import Authenticated from './screen/Authenticated';
+import Error from './screen/Error';
+import SplashPage from './screen/SplashPage';
+import UserSetting from './screen/UserSetting';
 
 export enum ROUTES {
-  HOME_PAGE = 'HOME_PAGE',
+  SPLASH_PAGE = 'SPLASH_PAGE',
   LOGIN_PAGE = 'LOGIN_PAGE',
   SIGNUP_PAGE = 'SIGNUP_PAGE',
   LOGOUT = 'LOGOUT',
-  USER_SETTING = 'USER_SETTING',
   ERROR_PAGE = 'ERROR_PAGE',
+  AUTHENTICATED = 'AUTHENTICATED',
+  USER_SETTING = 'USER_SETTING',
 }
 
 export type Routes = keyof typeof ROUTES;
@@ -18,13 +22,15 @@ interface RouteDefinition {
   path: string;
   element: React.ReactNode;
   icon?: React.ReactNode;
+  isSubRoute?: boolean;
+  basePath?: string;
 }
 
 export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
-  [ROUTES.HOME_PAGE]: {
-    label: 'Dashboard',
+  [ROUTES.SPLASH_PAGE]: {
+    label: 'Splash Page',
     path: '/',
-    element: <HomePage />,
+    element: <SplashPage />,
     icon: <House />,
   },
   [ROUTES.LOGIN_PAGE]: {
@@ -37,23 +43,33 @@ export const ROUTE_DEFINITIONS: Record<ROUTES, RouteDefinition> = {
     path: '/signup',
     element: <Auth />,
   },
-  [ROUTES.USER_SETTING]: {
-    label: 'User Setting',
-    path: '/user-setting',
-    element: <HomePage />,
-    icon: <Settings />,
-  },
   [ROUTES.LOGOUT]: {
     label: 'Logout',
     path: '/',
-    element: <HomePage />,
+    element: <SplashPage />,
     icon: <LogOut />,
   },
   [ROUTES.ERROR_PAGE]: {
     label: 'Error',
     path: '/error',
-    element: <div>Error Page - Something went wrong</div>,
+    element: <Error />,
+  },
+  [ROUTES.AUTHENTICATED]: {
+    label: 'Dashboard',
+    path: '/:username/*',
+    basePath: '/',
+    element: <Authenticated />,
+    icon: <House />,
+    isSubRoute: true,
+  },
+  [ROUTES.USER_SETTING]: {
+    label: 'User Setting',
+    path: '/:username/user-setting',
+    basePath: '/user-setting',
+    element: <UserSetting />,
+    icon: <Settings />,
+    isSubRoute: true,
   },
 }
 
-export const ROOT_ROUTES = [ ROUTES.HOME_PAGE, ROUTES.LOGIN_PAGE, ROUTES.SIGNUP_PAGE, ROUTES.USER_SETTING ];
+export const ROOT_ROUTES = [ ROUTES.SPLASH_PAGE, ROUTES.LOGIN_PAGE, ROUTES.SIGNUP_PAGE, ROUTES.ERROR_PAGE, ROUTES.AUTHENTICATED ];

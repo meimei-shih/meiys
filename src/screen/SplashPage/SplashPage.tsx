@@ -1,11 +1,17 @@
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import TicketyFlowImage from 'src/assets/images/tickety-flow.png';
 import TicketyTeamImage from 'src/assets/images/tickety-team.png';
 import { ROUTE_DEFINITIONS } from 'src/routeConfig';
+import { useAuth } from 'src/context/AuthProvider';
 import Footer from 'src/components/Footer';
+import Loading from '../Loading';
 import './SplashPage.css';
 
 const SplashPage: React.FC = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+
+  if (isAuthenticated) return <Navigate to={ROUTE_DEFINITIONS.AUTHENTICATED.path} />
+  else if (isLoading) return <Loading />
   return (
     <>
       <div className='splash-page'>
@@ -35,10 +41,4 @@ const SplashPage: React.FC = () => {
   )
 }
 
-const SplashPageWrapper: React.FC = () => {
-  return (
-    <SplashPage />
-  )
-}
-
-export default SplashPageWrapper;
+export default SplashPage;
